@@ -27,3 +27,20 @@ floret skipgram -mode floret -hashCount 2 -bucket 50000 -minn 3 -maxn 5 -minCoun
     -dim 300 -epoch 5 -thread 16 -input corpus/fi-tokenized.txt \
 	-output trained_models/fi-300-50k-minn3-maxn5
 ```
+
+## Quality
+
+This section compares the quality of the trained floret model on downstream tasks against the [Finnish fastText model](https://fasttext.cc/docs/en/crawl-vectors.html) published by Facebook.
+
+See [instructions for running the evaluations](evaluation.md).
+
+| Experiment                                    | fastText | floret |
+| --------------------------------------------- | -------- | ------ |
+| Text classification (eduskunta-vkk), F1 macro | 0.43     | 0.41   |
+
+## Model sizes
+
+| Model            | Size (uncompressed) |
+| ---------------- | ------------------- |
+| fastText (.bin)  | 6.8 GB              |
+| floret (.floret) | 0.1 GB              |

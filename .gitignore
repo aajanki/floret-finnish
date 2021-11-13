@@ -1,3 +1,5 @@
 venv/
 corpus/
 trained_models/
+fasttext_models/
+evaluation/data/
