@@ -4,6 +4,10 @@ This repository contains instructions for training floret word embeddings for Fi
 
 [Floret](https://github.com/explosion/floret) is a library for generating word embeddings. It can generate embeddings for any word by using subword information. It's similar to fastText but required a much smaller vector table.
 
+## Download pre-trained word embeddings
+
+Download [pre-trained Finnish word embeddings](https://github.com/aajanki/floret-finnish/releases/download/release%2F1/fi-300-50k-minn3-maxn5-epoch5.floret.gz).
+
 ## Training a Finnish floret model
 
 First, [build floret](https://github.com/explosion/floret#build-floret-from-source) from source.
@@ -25,10 +29,10 @@ xzcat corpus/fi.txt.xz | python -m tokenizer.tokenize_fi > corpus/fi-tokenized.t
 mkdir -p trained_models
 floret skipgram -mode floret -hashCount 2 -bucket 50000 -minn 3 -maxn 5 -minCount 50 \
     -dim 300 -epoch 5 -thread 16 -input corpus/fi-tokenized.txt \
-	-output trained_models/fi-300-50k-minn3-maxn5
+    -output trained_models/fi-300-50k-minn3-maxn5
 ```
 
-## Quality
+## Quality evaluation
 
 This section shows results of comparisons of the trained floret embeddings on downstream tasks against the [Finnish fastText embeddings](https://fasttext.cc/docs/en/crawl-vectors.html) published by Facebook.
 
