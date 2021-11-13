@@ -1,24 +1,24 @@
-# Finnish floret
+# floret word embeddings for Finnish
 
-[Floret](https://github.com/explosion/floret) is a library for generating word embeddings. It can generate embeddings for any word by using subword information. It's similar to fastText but needs a much smaller vector table.
+This repository contains instructions for training floret word embeddings for Finnish. The embeddings are trained on [CC-100](http://data.statmt.org/cc-100/) corpus (based on CommonCrawl).
+
+[Floret](https://github.com/explosion/floret) is a library for generating word embeddings. It can generate embeddings for any word by using subword information. It's similar to fastText but required a much smaller vector table.
 
 ## Training a Finnish floret model
 
 First, [build floret](https://github.com/explosion/floret#build-floret-from-source) from source.
 
 ```sh
-# Download the CC-100 Finnish corpus
-# See http://data.statmt.org/cc-100/
-mkdir -p corpus
-wget --directory-prefix=corpus http://data.statmt.org/cc-100/fi.txt.xz
-
-# Setup Python virtual environment
+# Setup a Python virtual environment
 python3 -m venv venv
 source venv/bin/activate
 pip install wheel
 pip install -r requirements.txt
 
-# Tokenize
+# Download the CC-100 Finnish corpus and tokenize it
+# See http://data.statmt.org/cc-100/
+mkdir -p corpus
+wget --directory-prefix=corpus http://data.statmt.org/cc-100/fi.txt.xz
 xzcat corpus/fi.txt.xz | python -m tokenizer.tokenize_fi > corpus/fi-tokenized.txt
 
 # Train the model
@@ -30,15 +30,18 @@ floret skipgram -mode floret -hashCount 2 -bucket 50000 -minn 3 -maxn 5 -minCoun
 
 ## Quality
 
-This section compares the quality of the trained floret model on downstream tasks against the [Finnish fastText model](https://fasttext.cc/docs/en/crawl-vectors.html) published by Facebook.
+This section shows results of comparisons of the trained floret embeddings on downstream tasks against the [Finnish fastText embeddings](https://fasttext.cc/docs/en/crawl-vectors.html) published by Facebook.
 
 See [instructions for running the evaluations](evaluation.md).
 
-| Experiment                                    | fastText | floret |
+| Task                                          | fastText | floret |
 | --------------------------------------------- | -------- | ------ |
 | Text classification (eduskunta-vkk), F1 macro | 0.43     | 0.41   |
+| Correlation with morphology (QVEC)            | 0.652    | 0.640  |
 
-## Model sizes
+Higher values are better.
+
+## Trained model file sizes
 
 | Model            | Size (uncompressed) |
 | ---------------- | ------------------- |

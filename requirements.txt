@@ -4,3 +4,4 @@ numpy==1.21.4
 fasttext==0.9.2
 scikit-learn>=1.0.0,<1.1.0
 floret==0.10.1
+voikko==0.5
